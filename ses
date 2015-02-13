@@ -16,28 +16,28 @@ LOG_LINES=5000  # 0 means include the entire file
 
 # Helper functions liberated from Matt Barringer's supportutils-plugin-susecloud
 validate_rpm_if_installed() {
-        thisrpm="$1"
-        echo "#==[ Validating RPM ]=================================#"
-        if rpm -q "$thisrpm" >/dev/null 2>&1; then
-                echo "# rpm -V $thisrpm"
+    thisrpm="$1"
+    echo "#==[ Validating RPM ]=================================#"
+    if rpm -q "$thisrpm" >/dev/null 2>&1; then
+        echo "# rpm -V $thisrpm"
 
-                if rpm -V "$thisrpm"; then
-                        echo "Status: Passed"
-                else
-                        echo "Status: WARNING"
-                fi
+        if rpm -V "$thisrpm"; then
+            echo "Status: Passed"
         else
-                echo "package $thisrpm is not installed"
-                echo "Status: Skipped"
+            echo "Status: WARNING"
         fi
-        echo
+    else
+        echo "package $thisrpm is not installed"
+        echo "Status: Skipped"
+    fi
+    echo
 }
 
 #############################################################
 section_header "Supportconfig Plugin for SUSE Enterprise Storage, v${SVER}"
 rpm_list=/usr/lib/supportconfig/resources/ses-rpm-list
 for thisrpm in $(cat "$rpm_list"); do
-        validate_rpm_if_installed "$thisrpm"
+    validate_rpm_if_installed "$thisrpm"
 done
 
 #############################################################
