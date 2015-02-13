@@ -42,14 +42,18 @@ done
 
 #############################################################
 section_header "Ceph cluster status"
-plugin_command "ceph -s"
-plugin_command "ceph mon dump"
+
+if [ -x /usr/bin/ceph ]; then
+    plugin_command "ceph -s"
+    plugin_command "ceph mon dump"
+    plugin_command "ceph osd tree"
+fi
 
 #############################################################
 section_header "Ceph config"
 
 if [ -d /etc/ceph ]; then
-    if files=$(find /etc/ceph -type f | egrep -v '(/monmap|\.keyring)$'); then
+    if files=$(find /etc/ceph -type f | egrep -v '.keyring$'); then
         if [ -n "$files" ]; then
             pconf_files $files
         fi
