@@ -47,6 +47,9 @@ if [ -x /usr/bin/ceph ]; then
     plugin_command "ceph -s"
     plugin_command "ceph mon dump"
     plugin_command "ceph osd tree"
+    plugin_command "ceph osd crush dump"
+    plugin_command "rados df"
+    plugin_command "rbd ls"
 fi
 
 #############################################################
