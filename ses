@@ -63,5 +63,26 @@ fi
 #############################################################
 section_header "Ceph log files"
 
-plog_files LOG_LINES /var/log/ceph/*.log
+plog_files $LOG_LINES /var/log/ceph/*.log
+
+#############################################################
+section_header "Calamari log files"
+
+plog_files $LOG_LINES /var/log/calamari/*.log
+
+#############################################################
+section_header "Salt config"
+
+if [ -d /etc/salt ]; then
+    if files=$(find /etc/salt -type f | egrep -v '.pem$'); then
+        if [ -n "$files" ]; then
+            pconf_files $files
+        fi
+    fi
+fi
+
+#############################################################
+section_header "Salt log files"
+
+plog_files $LOG_LINES /var/log/salt/*.log
 
