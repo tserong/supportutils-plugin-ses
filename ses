@@ -84,5 +84,5 @@ fi
 #############################################################
 section_header "Salt log files"
 
-plog_files $LOG_LINES /var/log/salt/*.log
+plog_files $LOG_LINES /var/log/salt/{master,minion}
 
