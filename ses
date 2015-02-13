@@ -69,6 +69,11 @@ section_header "Ceph log files"
 plog_files $LOG_LINES /var/log/ceph/*.log
 
 #############################################################
+section_header "Radosgw log files"
+
+plog_files $LOG_LINES /var/log/ceph-radosgw/*.log
+
+#############################################################
 section_header "Calamari log files"
 
 plog_files $LOG_LINES /var/log/calamari/*.log
