@@ -44,12 +44,14 @@ done
 section_header "Ceph cluster status"
 
 if [ -x /usr/bin/ceph ]; then
-    plugin_command "ceph -s"
-    plugin_command "ceph mon dump"
-    plugin_command "ceph osd tree"
-    plugin_command "ceph osd crush dump"
-    plugin_command "rados df"
-    plugin_command "rbd ls"
+    # timeout status commands after 5 seconds
+    CT=5
+    plugin_command "ceph --connect-timeout=$CT -s"
+    plugin_command "ceph --connect-timeout=$CT mon dump"
+    plugin_command "ceph --connect-timeout=$CT osd tree"
+    plugin_command "ceph --connect-timeout=$CT osd crush dump"
+    plugin_command "timeout $CT rados df"
+    plugin_command "timeout $CT rbd ls"
 fi
 
 #############################################################
