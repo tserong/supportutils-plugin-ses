@@ -49,7 +49,10 @@ if [ -x /usr/bin/ceph ]; then
     plugin_command "ceph --connect-timeout=$CT -s"
     plugin_command "ceph --connect-timeout=$CT mon dump"
     plugin_command "ceph --connect-timeout=$CT osd tree"
-    plugin_command "ceph --connect-timeout=$CT osd crush dump"
+    # `ceph report` does actually include the above information, but
+    # in JSON format.  Since adding `ceph report`, the above commands
+    # remain, because their output is easier to read in a hurry ;)
+    plugin_command "ceph --connect-timeout=$CT report"
     plugin_command "timeout $CT rados df"
     plugin_command "timeout $CT rbd ls"
 fi
